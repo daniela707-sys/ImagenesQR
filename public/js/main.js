@@ -26,6 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Obtener lista de cámaras disponibles
     async function getCameras() {
         try {
+            // Solicitar permisos primero para obtener deviceIds
+            await navigator.mediaDevices.getUserMedia({ video: true });
             const devices = await navigator.mediaDevices.enumerateDevices();
             cameras = devices.filter(device => device.kind === 'videoinput');
         } catch (err) {
@@ -72,7 +74,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Cambiar cámara (doble clic en video)
     video.addEventListener('dblclick', async function() {
-        if (cameras.length > 1 && stream) {
+        if (cameras.length <= 1) {
+            statusDiv.textContent = 'Solo hay una cámara disponible';
+            return;
+        }
+        
+        if (stream) {
             currentCameraIndex = (currentCameraIndex + 1) % cameras.length;
             
             // Detener cámara actual
@@ -83,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 stream = await startCamera(deviceId);
                 video.srcObject = stream;
                 statusDiv.textContent = `Cambiado a cámara ${currentCameraIndex + 1} de ${cameras.length}`;
+                statusDiv.className = 'status';
             } catch (err) {
                 console.error('Error al cambiar cámara:', err);
                 statusDiv.textContent = 'Error al cambiar cámara';
