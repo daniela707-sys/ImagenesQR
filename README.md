@@ -2,7 +2,7 @@
 
 ## 📋 Descripción
 
-Sistema web que permite capturar imágenes usando la cámara del dispositivo, generar códigos QR únicos para cada captura y subir las imágenes al servidor. Ideal para documentación fotográfica con trazabilidad.
+Sistema web que permite capturar imágenes usando la cámara del dispositivo, generar códigos QR únicos para cada captura y subir las imágenes al servidor. Ideal para documentación fotográfica con trazabilidad, para visualizar en diferentes dispositivos puede ingresar en su navegador a la url https://imagenqr.rf.gd/?i=1.
 
 ## 🏗️ Arquitectura de la Solución
 
